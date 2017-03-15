@@ -110,9 +110,9 @@ def register():
             sql = "insert into user_info (name, password, email, phone) values (%s, %s, %s, %s)"
             cursor.execute(sql,(uname,password,email,phn))
             db.commit()
-            flash(sql)
+            #flash(sql)
             
-            #flash('New user registration successfully completed!!')
+            flash('New user registration successfully completed!!')
             #flash('hello new user')
             return redirect(url_for('login'))
         
