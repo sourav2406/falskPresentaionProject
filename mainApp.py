@@ -97,11 +97,23 @@ def register():
     if request.method == 'POST':
         error = validate(request.form);
         if error is None :
+            uname = request.form['username']
+            password = request.form['password']
+            email = request.form['email']
+            phn = int(request.form['phone'])
 #             db = get_db()
 #             db.execute('insert into user_info (name, password, email, phone) values (?, ?, ?, ?)',
 #                  [request.form['username'], request.form['password'], request.form['email'], request.form['phone']])
 #             db.commit()
-            flash('New user registration successfully completed!!')
+            db = mysql.connect()
+            cursor = db.cursor()
+            sql = "insert into user_info (name, password, email, phone) values (%s, %s, %s, %s)"
+            cursor.execute(sql,(uname,password,email,phn))
+            db.commit()
+            flash(sql)
+            
+            #flash('New user registration successfully completed!!')
+            #flash('hello new user')
             return redirect(url_for('login'))
         
     return render_template('register.html',error=error)
